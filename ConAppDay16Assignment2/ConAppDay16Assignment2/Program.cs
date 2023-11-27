@@ -53,6 +53,6 @@ namespace ConAppDay16Assignment2
         static int Add(int a, int b) => a + b;
         static int Subtract(int a, int b) => a - b;
         static int Multiply(int a, int b) => a * b;
-        static int Divide(int a, int b) => b != 0 ? a / b : 0; // Check for division by zero
+        static int Divide(int a, int b) => b != 0 ? a / b : 0; 
     }
 }
