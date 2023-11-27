@@ -1,61 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace ConAppDay16Assignment2
 {
-
     internal class Program
     {
+        delegate T Operation<T>(T a, T b);
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the first number");
+            Console.WriteLine("Enter the first number:");
             int num1 = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter The second nuber");
+            Console.WriteLine("Enter the second number:");
             int num2 = int.Parse(Console.ReadLine());
-            Console.WriteLine("Choose \n 1.Addition \n 2.Subtraction \n 3.Multi \n 4.Divide");
-            Console.WriteLine("Enter your choice");
+            Console.WriteLine("Choose an operation:");
+            Console.WriteLine("1. Addition");
+            Console.WriteLine("2. Subtraction");
+            Console.WriteLine("3. Multiplication");
+            Console.WriteLine("4. Division");
+            Console.WriteLine("Enter your choice:");
+
             int choice = int.Parse(Console.ReadLine());
+            Operation<int> operation = null;
+
             switch (choice)
             {
                 case 1:
-                    {
-                        Func<int, int, int> Add = (number1, number2) => number1 + number2;
-                        int result = Add(num1, num2);
-                        Console.WriteLine($"Addition of two number {num1} and {num2}: " + result);
-                        break;
-                    }
+                    operation = Add;
+                    break;
                 case 2:
-                    {
-                        Func<int, int, int> Sub = (number1, number2) => number1 - number2;
-                        int result = Sub(num1, num2);
-                        Console.WriteLine($"Subtraction of two number {num1} and {num2}: " + result);
-                        break;
-                    }
+                    operation = Subtract;
+                    break;
                 case 3:
-                    {
-                        Func<int, int, int> Multi = (number1, number2) => number1 * number2;
-                        int result = Multi(num1, num2);
-                        Console.WriteLine($"Multiplication of two number {num1} and {num2}: " + result);
-                        break;
-                    }
+                    operation = Multiply;
+                    break;
                 case 4:
-                    {
-                        Func<int, int, int> Divide = (number1, number2) => number1 / number2;
-                        int result = Divide(num1, num2);
-                        Console.WriteLine($"Division of two number {num1} and {num2}: " + result);
-                        break;
-                    }
+                    operation = Divide;
+                    break;
                 default:
-                    {
-                        Console.WriteLine("Invalid operation");
-                        break;
-                    }
+                    Console.WriteLine("Invalid operation");
+                    break;
             }
-            Console.ReadKey();
 
+            if (operation != null)
+            {
+                int result = operation(num1, num2);
+                Console.WriteLine($"Result: {result}");
+            }
+
+            Console.ReadKey();
         }
+
+        static int Add(int a, int b) => a + b;
+        static int Subtract(int a, int b) => a - b;
+        static int Multiply(int a, int b) => a * b;
+        static int Divide(int a, int b) => b != 0 ? a / b : 0; // Check for division by zero
     }
 }
